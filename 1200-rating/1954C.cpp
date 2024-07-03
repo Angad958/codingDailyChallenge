@@ -9,7 +9,7 @@
 #include <cstring>
 using namespace std;
 #define gc getchar_unlocked
-#define fo(i, n) for (int i = 0; i < n; i++)
+#define fo(i, n) for (i = 0; i < n; i++)
 #define Fo(i, k, n) for (i = k; k < n ? i < n : i > n; k < n ? i += 1 : i -= 1)
 #define ll long long
 #define deb(x) cout << #x << "=" << x << endl
@@ -44,27 +44,52 @@ int main()
     cin >> t;
     while (t--)
     {
-        int n, k;
-        cin >> n >> k;
-        vl v;
-        fo(i, n)
-        {
-            ll a;
-            cin >> a;
-            v.pb(a);
-        }
-        sortall(v);
-        vl pref(n+1, 0);
+        string x, y;
+        cin >> x >> y;
+        int n = x.size();
+        int b = 0;
+        int ind = 0;
+
         for (int i = 0; i < n; i++)
         {
-            pref[i+1] = v[i] + pref[i];
+           if((x[i]-'0')==(y[i]-'0'))
+           {
+             continue;
+           }
+           else 
+           {
+            if((x[i]-'0')>(y[i]-'0'))
+            {
+                b = 1;
+                ind = i;
+            }
+            else
+            {
+                ind = i;
+            }
+                 break;
+           }
         }
-        ll ans = 0;
-        for (int i = 0; i <= k; i++)
+        
+        for (int i = n - 1; i >ind; i--)
         {
-            ans = max(ans, pref[n - k + i] - pref[2 * i]);
+            if(b)
+            {
+            if(x[i]-'0'>y[i]-'0')
+            {
+                swap(x[i], y[i]);
+            }
+            }
+            else
+            {
+            if(x[i]-'0'<y[i]-'0')
+            {
+                swap(x[i], y[i]);
+            }
+            }
         }
-        cout << ans << endl;
+        cout << x << endl
+             << y << endl;
     }
     return 0;
 }
