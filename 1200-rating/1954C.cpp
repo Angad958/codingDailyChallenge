@@ -52,41 +52,17 @@ int main()
 
         for (int i = 0; i < n; i++)
         {
-           if((x[i]-'0')==(y[i]-'0'))
-           {
-             continue;
-           }
+           if((x[i]-'0')==(y[i]-'0'))     continue;
            else 
            {
-            if((x[i]-'0')>(y[i]-'0'))
-            {
-                b = 1;
-                ind = i;
-            }
-            else
-            {
-                ind = i;
-            }
-                 break;
+            if((x[i]-'0')>(y[i]-'0')) b = 1;
+            ind = i;
+            break;
            }
         }
         
-        for (int i = n - 1; i >ind; i--)
-        {
-            if(b)
-            {
-            if(x[i]-'0'>y[i]-'0')
-            {
-                swap(x[i], y[i]);
-            }
-            }
-            else
-            {
-            if(x[i]-'0'<y[i]-'0')
-            {
-                swap(x[i], y[i]);
-            }
-            }
+        for (int i = n - 1; i > ind; i--) {
+            if ((b && x[i] > y[i]) || (!b && x[i] < y[i])) swap(x[i], y[i]);
         }
         cout << x << endl
              << y << endl;
