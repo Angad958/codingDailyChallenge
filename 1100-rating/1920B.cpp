@@ -71,29 +71,16 @@ int main()
         {
             pref[i] = pref[i - 1] + v[i];
         }
-        ll temp = INT_MIN;
-        if(k<x)
-        {
-          while(k) {
-              v.pop_back();
-              k--;
-          }
-          ll sum = 0;
-          fo(i, v.size()) sum += v[i];
-          cout << -sum << endl;
-          continue;
-        }
-        if(n==k)
-            temp = 0;
+        ll temp = INT_MIN,f=0;
+       
 
         for (int i = 0; i <= k;i++)
         {
-           if(n-i-x-1>=0) {
-            temp = max(temp,pref[n-i-x-1]-( pref[n - 1 - i] - pref[n - i - x - 1]));
-           }
-
+  
+            temp = max(temp,pref[n-1]-2*pref[min(i + x, n)-1]+( pref[i-1]));
+    
         }
-        cout << temp << endl;
+       cout << temp << endl;
     }
     return 0;
 }

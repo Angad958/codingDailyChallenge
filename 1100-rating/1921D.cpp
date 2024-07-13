@@ -60,38 +60,29 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n, k, x;
-        cin >> n >> k >> x;
-        vl v(n) , pref(n);
+        ll n, m;
+        cin >> n >> m;
+        vl v(n), v1(m);
         fo(i, n) cin >> v[i];
-        ll sum = 0;
+        fo(i, m) cin >> v1[i];
         sortall(v);
-        pref[0] = v[0];
-        for (int i = 1; i <n; i++)
+        sortall(v1);
+        ll i = 0, j = m - 1,k=0;
+        ll temp = 0;
+        while (i < n)
         {
-            pref[i] = pref[i - 1] + v[i];
+                temp = temp + abs(v[i] - v1[j]);
+                i++;
+                j--;
         }
-        ll temp = INT_MIN;
-        if(k<x)
+        j++;
+     
+        ll ans = 0;
+        for (int i = n - 1; i >= 0; i--)
         {
-          while(k) {
-              v.pop_back();
-              k--;
-          }
-          ll sum = 0;
-          fo(i, v.size()) sum += v[i];
-          cout << -sum << endl;
-          continue;
-        }
-        if(n==k)
-            temp = 0;
-
-        for (int i = 0; i <= k;i++)
-        {
-           if(n-i-x-1>=0) {
-            temp = max(temp,pref[n-i-x-1]-( pref[n - 1 - i] - pref[n - i - x - 1]));
-           }
-
+            temp = max(temp - (abs(v1[j] - v[i]))+(abs(v1[k]-v[i])), temp);
+            j++;
+            k++;
         }
         cout << temp << endl;
     }
