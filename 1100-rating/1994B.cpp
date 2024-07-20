@@ -60,50 +60,41 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n, x, y;
-        cin >> n >> x >> y;
-        if(y==1)
+        ll n;
+        cin >> n;
+        string s1, s2;
+        cin >> s1 >> s2;
+        s1 = " " + s1;
+        s2 = " " + s2;
+        if (s1[0] == '1' || s1 == s2)
         {
-            fo(i,n)
-            {
-                cout << 1 << " ";
-            }
-            cout << endl;
+            cout << "YES" << endl;
             continue;
         }
-        else if(x==y)
+        vector<int> v(n + 1, 0);
+        for (int i = 1; i <= n;i++)
         {
-            fo(i,n)
+            if(s1[i]=='1')
             {
-                cout << 1 << " ";
+                v[i] = v[i - 1] + 1;
             }
-            cout << endl;
+            else
+            {
+                v[i] = v[i - 1];
+            }
         }
-        else
+        bool f = 0;
+        for (int i = 1; i <= n; i++)
         {
-            vl v(n + 1);
-            int curr = -1;
-            for (int i = 0; i < x; i++)
+            if(s1[i]=='0' && s2[i]=='1' && v[i-1]==0)
             {
-                v[i] = curr;
-                curr = -curr;
+                cout << "NO" << endl;
+                f = 1;
+                break;
             }
-            curr = -1;
-            for (int i = y; i < n; i++)
-            {
-                v[i] = curr;
-                curr = -curr;
-            }
-            for (int i = x; i <= y;i++)
-            {
-                v[i] = 1;
-            }
-            for(auto x:v)
-            {
-                cout << x << " " ;
-            }
-            cout << endl;
         }
+        if(!f)
+            cout << "YES" << endl;
     }
     return 0;
 }

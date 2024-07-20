@@ -60,50 +60,30 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n, x, y;
-        cin >> n >> x >> y;
-        if(y==1)
+        ll n;
+        cin >> n;
+        string s;
+        cin >> s;
+        int zeros = 0, ones = 0;
+        for (int i = 0; i < n;i++)
         {
-            fo(i,n)
+            if(s[i]=='1')
+                ones++;
+            if(s[i]=='0')
             {
-                cout << 1 << " ";
+                zeros++;
+                while(i<n && s[i]=='0')
+                { 
+                    i++;
+                }
+               i--;
             }
-            cout << endl;
-            continue;
+      
         }
-        else if(x==y)
-        {
-            fo(i,n)
-            {
-                cout << 1 << " ";
-            }
-            cout << endl;
-        }
+        if(ones>zeros)
+            cout << "YES" << endl;
         else
-        {
-            vl v(n + 1);
-            int curr = -1;
-            for (int i = 0; i < x; i++)
-            {
-                v[i] = curr;
-                curr = -curr;
-            }
-            curr = -1;
-            for (int i = y; i < n; i++)
-            {
-                v[i] = curr;
-                curr = -curr;
-            }
-            for (int i = x; i <= y;i++)
-            {
-                v[i] = 1;
-            }
-            for(auto x:v)
-            {
-                cout << x << " " ;
-            }
-            cout << endl;
-        }
+            cout << "NO" << endl;
     }
     return 0;
 }

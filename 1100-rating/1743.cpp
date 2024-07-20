@@ -60,50 +60,38 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n, x, y;
-        cin >> n >> x >> y;
-        if(y==1)
+        ll n;
+        cin >> n;
+        string s;
+        cin >> s;
+        
+        vl v(n);
+        fo(i, n) cin >> v[i];
+        ll sum = v[0];
+        int i = 0;
+        ll ans = 0;
+        if(s[0]=='1')
+          {  ans += v[0];
+              i = 1;
+          }
+
+        while (i < n)
         {
-            fo(i,n)
+            long long sm = v[i];
+            long long mini = v[i];
+            long long j = i + 1;
+            while (j < n && s[j] == '1')
             {
-                cout << 1 << " ";
+                mini = min(mini, v[j]);
+                sm += v[j];
+                j++;
             }
-            cout << endl;
-            continue;
+
+            ans += sm - mini;
+            i = j;
         }
-        else if(x==y)
-        {
-            fo(i,n)
-            {
-                cout << 1 << " ";
-            }
-            cout << endl;
-        }
-        else
-        {
-            vl v(n + 1);
-            int curr = -1;
-            for (int i = 0; i < x; i++)
-            {
-                v[i] = curr;
-                curr = -curr;
-            }
-            curr = -1;
-            for (int i = y; i < n; i++)
-            {
-                v[i] = curr;
-                curr = -curr;
-            }
-            for (int i = x; i <= y;i++)
-            {
-                v[i] = 1;
-            }
-            for(auto x:v)
-            {
-                cout << x << " " ;
-            }
-            cout << endl;
-        }
+
+        cout << ans << endl;
     }
     return 0;
 }

@@ -62,7 +62,8 @@ int main()
     {
         ll n, x, y;
         cin >> n >> x >> y;
-        if(y==1)
+        x--;y--;
+        if (y == 1)
         {
             fo(i,n)
             {
@@ -81,15 +82,15 @@ int main()
         }
         else
         {
-            vl v(n + 1);
+            vl v(n);
             int curr = -1;
-            for (int i = 0; i < x; i++)
+            for (int i = y-1; i >=0; i--)
             {
                 v[i] = curr;
                 curr = -curr;
             }
             curr = -1;
-            for (int i = y; i < n; i++)
+            for (int i = x+1; i < n; i++)
             {
                 v[i] = curr;
                 curr = -curr;

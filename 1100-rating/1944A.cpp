@@ -60,47 +60,51 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n, x, y;
-        cin >> n >> x >> y;
-        if(y==1)
+        ll n, m;
+        cin >> n >> m;
+        vector<vector<ll> > v(n, vector<ll>(m));
+        vector<ll> no(n * m, 0);
+       
+        for (ll i = 0; i < n; i++)
         {
-            fo(i,n)
+            for (ll j = 0; j < m; j++)
             {
-                cout << 1 << " ";
+               
+                cin >> v[i][j];
+            
             }
-            cout << endl;
+        
+        }
+        if(m==1 )
+        {
+            for (int i = 0; i < n-1;i++)
+            {
+               swap(v[i][0], v[i+1][0]);
+            }
+              
+        }
+        for (ll i = 0; i < n * m;i++)
+        {
+            no[i] = i + 1;
+        }
+       for (ll i = 0; i < n; i++)
+        {
+            for (ll j = 0; j < m-1; j++)
+            {
+                swap(v[i][j], v[i][j + 1]);
+            }
+        }
+        if(n==1 && m==1)
+        {
+            cout << "-1" << endl;
             continue;
         }
-        else if(x==y)
+        for (ll i = 0; i < n; i++)
         {
-            fo(i,n)
+            for (ll j = 0; j < m; j++)
             {
-                cout << 1 << " ";
-            }
-            cout << endl;
-        }
-        else
-        {
-            vl v(n + 1);
-            int curr = -1;
-            for (int i = 0; i < x; i++)
-            {
-                v[i] = curr;
-                curr = -curr;
-            }
-            curr = -1;
-            for (int i = y; i < n; i++)
-            {
-                v[i] = curr;
-                curr = -curr;
-            }
-            for (int i = x; i <= y;i++)
-            {
-                v[i] = 1;
-            }
-            for(auto x:v)
-            {
-                cout << x << " " ;
+
+                cout << v[i][j] << " ";
             }
             cout << endl;
         }

@@ -60,50 +60,39 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n, x, y;
-        cin >> n >> x >> y;
-        if(y==1)
+        string s;
+        cin >> s;
+        string s1;
+        int f = 0;
+        for (int i = s.size() - 1; i >= 0; i--)
         {
-            fo(i,n)
-            {
-                cout << 1 << " ";
-            }
-            cout << endl;
-            continue;
+           if((s[i]-'0')+(s[i-1]-'0') >= 10 && !f)
+           {
+               int val = (s[i] - '0') + (s[i - 1] - '0');
+               string k = to_string(val % 10);
+               s1 += k;
+               val = val / 10;
+               string kp = to_string(val % 10);
+               s1+=kp;
+               f = 1;
+               i--;
+           }
+           else
+           {
+               s1.push_back(s[i]);
+           }
         }
-        else if(x==y)
+        if(!f)
         {
-            fo(i,n)
-            {
-                cout << 1 << " ";
-            }
-            cout << endl;
+        
+            s1.pop_back();
+            s1.pop_back();
+            string k = to_string((s[0] - '0') + (s[1] - '0'));
+            s1 += k;
         }
-        else
-        {
-            vl v(n + 1);
-            int curr = -1;
-            for (int i = 0; i < x; i++)
-            {
-                v[i] = curr;
-                curr = -curr;
-            }
-            curr = -1;
-            for (int i = y; i < n; i++)
-            {
-                v[i] = curr;
-                curr = -curr;
-            }
-            for (int i = x; i <= y;i++)
-            {
-                v[i] = 1;
-            }
-            for(auto x:v)
-            {
-                cout << x << " " ;
-            }
-            cout << endl;
-        }
+       
+        reverse(s1.begin(), s1.end());
+        cout << s1 << endl;
     }
     return 0;
 }

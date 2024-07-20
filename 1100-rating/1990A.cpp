@@ -60,49 +60,52 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n, x, y;
-        cin >> n >> x >> y;
-        if(y==1)
+        ll n;
+        cin >> n;
+        vl v(n);
+        fo(i, n) cin >> v[i];
+        sortall(v);
+        ll mx = v[n - 1];
+        ll f = 0, ans = 0;
+        map<ll, ll> mp;
+        
+        for (int i = n - 1; i >= 0; i--)
         {
-            fo(i,n)
-            {
-                cout << 1 << " ";
-            }
-            cout << endl;
-            continue;
+           if(v[i]==mx)
+           {
+               f++;
+           }
+           mp[v[i]]++;
         }
-        else if(x==y)
-        {
-            fo(i,n)
-            {
-                cout << 1 << " ";
-            }
-            cout << endl;
-        }
+        bool flag = false;
+        if (f & 1)
+            cout << "YES" << endl;
         else
         {
-            vl v(n + 1);
-            int curr = -1;
-            for (int i = 0; i < x; i++)
+            for (int i = n - 1; i > 0;i--)
             {
-                v[i] = curr;
-                curr = -curr;
+                ans += mp[v[i]];
+                while (i>0 && v[i] == v[i - 1])
+                {
+                    i--;
+                }
+                if(ans&1)
+                {
+                    cout << "YES" << endl;
+                    flag = true;
+                    break;
+                }
             }
-            curr = -1;
-            for (int i = y; i < n; i++)
-            {
-                v[i] = curr;
-                curr = -curr;
-            }
-            for (int i = x; i <= y;i++)
-            {
-                v[i] = 1;
-            }
-            for(auto x:v)
-            {
-                cout << x << " " ;
-            }
-            cout << endl;
+        }
+        ans += mp[v[0]];
+        if(ans&1 && !(f & 1) && !flag)
+        {
+            cout << "YES" << endl;
+            continue;
+        }
+        if (!flag && !(f & 1))
+        {
+            cout << "NO" << endl;
         }
     }
     return 0;
